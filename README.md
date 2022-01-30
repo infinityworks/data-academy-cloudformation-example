@@ -61,9 +61,60 @@ aws cloudformation create-stack --stack-name <cf-stack-name> --template-url http
 
 ### Template2: Lambda Function
 
+The second CloudFormation template you will deploy can be found [here](templates/template2-lambda.yaml).
+
+The template only contains a resources section. There are two resources being deployed:
+* **Lambda Function Role**: The functions execution role, this dictates what the function can and cannot do within the AWS account.
+* **Lambda Function**: The lambda function itself.
+
+Upload the deployment template to S3, using the same commands as above, and create a new CloudFormation stack. Once the CloudFormation stack has been deployed, manually invoke the lambda in the console (or using the CLI).
+
+**Exercise 2**: Extend the function code to list all objects in a specified S3 bucket. You will need to use Boto3 to do this. The required function can be found [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.list_objects). Since the function is now interacting with S3, you will also need to update the function role. Add a new policy to the lambda execution role, similar to the LambdaLogsPolicy which adds the permissions to list s3 objects. This [guide](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-execution-role-s3-bucket/) will help.
+
+### Template3: Lambda Function with S3 Trigger
+
+The third CloudFormation template builds upon the second but includes an S3 event trigger which invokes the function.
+
+The template contains two sections: parameters and resources. The following resources are being deployed:
+* **Lambda Function Role**
+* **Lambda Function**
+* **S3 Bucket**: A regular S3 bucket which contains a notification configuration.
+* **Lambda Permission**: The permission resource grants an AWS service or another account permission to use a function. In this instance the S3 bucket is granted permissions to invoke the lambda.
+
+Upload the deployment template to S3, using the same commands as above, and create a new CloudFormation stack. Once the CloudFormation stack has been deployed, manually invoke the lambda by uploading a file into the S3 bucket. Deconstruct the event and identify the s3 bucket and s3 key.
+
+**Exercise 3**: Extend the function code to download the S3 object in the event to the `/tmp` directory of the lambda. You will need to use boto3 to do this. The required function can be found [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file). Since the function is now interacting with S3, you will also need to update the permissions to get S3 objects. Assert that the file has been downloaded and log the results.
+
+### Template4: Lambda Deployment Packages
+
+You will often want to use external Python packages in your lambda functions (Pandas, Requests, etc.). To use additional packages in your lambda functions you must build a deployment package and upload it to S3.
+
+To build a deployment package using a virtual environment follow these steps:
+* Create a virtual environment: `python3 -m venv .venv`
+* Activate the environment: `source .venv/bin/activate`
+* Install external packages: `pip3 install pandas`
+* Deactivate the virtual environment: `deactivate`
+* Create a deployment package with the installed libraries at the root:
+```
+cd .venv/lib/python3.9/site-packages
+zip -r ../../../../deployment-package.zip .
+```
+* Add function code files to the root of your deployment package.
+```
+cd ../../../../
+zip -g deployment-package.zip lambda_function.py
+```
+
+Template 4 builds on template 3 but uses a deployment package on S3 to deploy the lambda. 
+
+**Exercise 4**: Update the *lambda_function.py* file to use pandas to read a csv file from the `/tmp` directory. Log the dataframe head. Once you've updated the lambda function, create a deployment package as per the above steps. Upload the deployment package to the same S3 bucket where you are deploying your templates. Finally create a new stack for template 4 with the relevent parameters.
 
 
-### Template3: Lambda Function 2
+
+
+
+
+
 
 
 
