@@ -111,7 +111,7 @@ zip -g deployment-package.zip lambda_function.py
 Template 4 builds on template 3 but uses a deployment package on S3 to deploy the lambda. Rather than hard coding the S3 bucket names, you will be using parameters. Parameters allow user inputs while the stack is being created.
 
 ```
-aws cloudformation create-stack --stack-name <cf-stack-name> --template-url https://<bucket-name>.s3.eu-west-1.amazonaws.com/templates/template1-s3-bucket.yaml --region eu-west-1 --parameters ParameterKey=DeploymentBucket,ParameterValue=<>BUCKET,ParameterKey=DeploymentPackageKey,ParameterValue=<KEY>,ParameterKey=BucketName,ParameterValue=<BUCKET>
+aws cloudformation create-stack --stack-name <cf-stack-name> --template-url https://<bucket-name>.s3.eu-west-1.amazonaws.com/templates/template1-s3-bucket.yaml --region eu-west-1 --parameters ParameterKey=DeploymentBucket,ParameterValue=<BUCKET>,ParameterKey=DeploymentPackageKey,ParameterValue=<KEY>,ParameterKey=BucketName,ParameterValue=<BUCKET>
 ```
 
 **Exercise 4**: Update the *lambda_function.py* file to use pandas to read a csv file from the `/tmp` directory. Log the dataframe head. Once you've updated the lambda function, create a deployment package as per the above steps. Upload the deployment package to the same S3 bucket where you are deploying your templates. Finally create a new stack for template 4 with the relevent parameters.
