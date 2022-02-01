@@ -80,9 +80,13 @@ The following resources are being deployed, you will need to update the S3 bucke
 * **S3 Bucket**: A regular S3 bucket which contains a notification configuration.
 * **Lambda Permission**: The permission resource grants an AWS service or another account permission to use a function. In this instance the S3 bucket is granted permissions to invoke the lambda.
 
+N/B The S3 Bucket has a notification configuration which is commented out. Due to a bug in CloudFormation you must first deploy the stack without S3 bucket notification, uncomment the notification configuration and update the stack.
+
 Upload the deployment template to S3, using the same commands as above, and create a new CloudFormation stack. Once the CloudFormation stack has been deployed, manually invoke the lambda by uploading a file into the S3 bucket. Deconstruct the event and identify the s3 bucket and s3 key.
 
 **Exercise 3**: Extend the function code to download the S3 object in the event to the `/tmp` directory of the lambda. You will need to use boto3 to do this. The required function can be found [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.download_file). Since the function is now interacting with S3, you will also need to update the permissions to get S3 objects. Assert that the file has been downloaded and log the results.
+
+
 
 ### Template4: Lambda Deployment Packages
 
