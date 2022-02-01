@@ -44,9 +44,8 @@ aws s3 mb s3://<bucket-name> --region eu-west-1
 
 The first and simplest CloudFormation template you will deploy can be found [here](templates/template1-s3-bucket.yaml).
 
-The template contains a two sections:
-* **Parameters**: Parameters allow us to receive user inputs when we create out stacks.
-* **Resources**: Resources describe the resources we want to deploy. We can reference parameters in the resources section using the `!REF` intrinsic function.
+The template contains one section:
+* **Resources**: Resources describe the resources we want to deploy. You will need to update the bucket name in the template.
 
 Upload your deployment template to S3 using the following command:
 ```
@@ -54,10 +53,10 @@ aws s3 cp templates/template1-s3-bucket.yaml s3://<bucket-name>/templates/templa
 ```
 Once the template has been uploaded to S3 you can create the CloudFormation stack.
 ```
-aws cloudformation create-stack --stack-name <cf-stack-name> --template-url https://<bucket-name>.s3.eu-west-1.amazonaws.com/templates/template1-s3-bucket.yaml --parameters BucketName=<bucket-name> --region eu-west-1
+aws cloudformation create-stack --stack-name <cf-stack-name> --template-url https://<bucket-name>.s3.eu-west-1.amazonaws.com/templates/template1-s3-bucket.yaml --region eu-west-1
 ```
 
-**Exercise 1**: Extend this template by adding another parameter and S3 bucket. You will have to update the CloudFormation template, upload the revision to S3 and run the `aws cloudformation update-stack` command.
+**Exercise 1**: Extend this template by adding another S3 bucket. You will have to update the CloudFormation template, upload the revision to S3 and run the `aws cloudformation update-stack` command.
 
 ### Template2: Lambda Function
 
@@ -75,7 +74,7 @@ Upload the deployment template to S3, using the same commands as above, and crea
 
 The third CloudFormation template builds upon the second but includes an S3 event trigger which invokes the function.
 
-The template contains two sections: parameters and resources. The following resources are being deployed:
+The following resources are being deployed, you will need to update the S3 bucket name:
 * **Lambda Function Role**
 * **Lambda Function**
 * **S3 Bucket**: A regular S3 bucket which contains a notification configuration.
@@ -105,7 +104,11 @@ cd ../../../../
 zip -g deployment-package.zip lambda_function.py
 ```
 
-Template 4 builds on template 3 but uses a deployment package on S3 to deploy the lambda. 
+Template 4 builds on template 3 but uses a deployment package on S3 to deploy the lambda. Rather than hard coding the S3 bucket names, you will be using parameters. Parameters allow user inputs while the stack is being created.
+
+```
+aws cloudformation create-stack --stack-name <cf-stack-name> --template-url https://<bucket-name>.s3.eu-west-1.amazonaws.com/templates/template1-s3-bucket.yaml --region eu-west-1 --parameters ParameterKey=DeploymentBucket,ParameterValue=<>BUCKET,ParameterKey=DeploymentPackageKey,ParameterValue=<KEY>,ParameterKey=BucketName,ParameterValue=<BUCKET>
+```
 
 **Exercise 4**: Update the *lambda_function.py* file to use pandas to read a csv file from the `/tmp` directory. Log the dataframe head. Once you've updated the lambda function, create a deployment package as per the above steps. Upload the deployment package to the same S3 bucket where you are deploying your templates. Finally create a new stack for template 4 with the relevent parameters.
 

@@ -1,13 +1,8 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: Template to deploy an S3 bucket.
 
-Parameters:
-  BucketName:
-      Type: String
-      Description: Enter the name of S3 bucket you wish to create.
-
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref BucketName
+      BucketName: <BUCKET_NAME>
