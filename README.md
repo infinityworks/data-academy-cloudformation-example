@@ -66,7 +66,7 @@ The template only contains a resources section. There are two resources being de
 * **Lambda Function Role**: The functions execution role, this dictates what the function can and cannot do within the AWS account.
 * **Lambda Function**: The lambda function itself.
 
-Upload the deployment template to S3, using the same commands as above, and create a new CloudFormation stack. Once the CloudFormation stack has been deployed, manually invoke the lambda in the console (or using the CLI).
+Upload the deployment template to S3, using the same commands as above, and create a new CloudFormation stack. Once the CloudFormation stack has been deployed, manually invoke the lambda in the console (or using the CLI). N.B. When deployinbg roles using CloudFormation you must also include the following flag: ` --capabilities CAPABILITY_IAM`.
 
 **Exercise 2**: Extend the function code to list all objects in a specified S3 bucket. You will need to use Boto3 to do this. The required function can be found [here](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.list_objects). Since the function is now interacting with S3, you will also need to update the function role. Add a new policy to the lambda execution role, similar to the LambdaLogsPolicy which adds the permissions to list s3 objects. This [guide](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-execution-role-s3-bucket/) will help.
 
