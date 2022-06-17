@@ -46,7 +46,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Runtime: python3.9
-      Handler: index.handler
+      Handler: lambda_function.handler
       Role: !GetAtt LambdaFunctionRole.Arn
       Code:
         S3Bucket: !Ref DeploymentBucket
