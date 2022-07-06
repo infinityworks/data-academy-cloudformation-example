@@ -93,12 +93,22 @@ Upload the deployment template to S3, using the same commands as above, and crea
 You will often want to use external Python packages in your lambda functions (Pandas, Requests, etc.). To use additional packages in your lambda functions you must build a deployment package and upload it to S3.
 
 To build a deployment package using a docker container follow these steps, the advantage of using a docker container over a virtual environment is a consistent environment.
+
+For Linux/macOS (in terminal):
 ```
 docker run -v "$PWD":/var/task "lambci/lambda:build-python3.8" /bin/sh -c "pip install -r requirements.txt -t package/; exit"
 cd package
 zip -r ../deployment_package.zip .   
 cd ..
 zip -g deployment_package.zip lambda_function.py
+```
+For Windows (in PowerShell):
+```
+docker run -v ${PWD}:/var/task "lambci/lambda:build-python3.8" /bin/sh -c "pip install -r requirements.txt -t package/; exit"
+cd package
+Compress-Archive -Path . -Destination ../deployment_package.zip
+cd ..
+Compress-Archive -Path lambda_function.py -Update -Destination deployment_package.zip
 ```
 
 Template 4 builds on template 3 but uses a deployment package on S3 to deploy the lambda. Rather than hard coding the S3 bucket names, you will be using parameters. Parameters allow user inputs while the stack is being created.
