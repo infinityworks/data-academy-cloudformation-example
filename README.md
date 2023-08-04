@@ -49,7 +49,7 @@ If you have already setup an SSO profile skip to step 10
 11. Check you can access AWS using the following command: `aws s3 ls --profile <profile-name>`. The command should list all the S3 buckets in the AWS account you have permissions to view. Validate this output using the AWS console.
 12. Finally set the following environmental variable: `AWS_PROFILE=<profile-name>`. This will save you adding the profile flag to every CLI command.
 
-## Deploying your first CloudFormation Stacks:
+## Deploying your first CloudFormation Stacks
 
 It is possible to configure and deploy CloudFormation stacks in the AWS console however we want to configure them using CloudFormation templates within our repos. A CloudFormation template is a declaration of AWS resources that make up a stack. The template is stored as either a JSON or YAML file, since they are just text files they can be edited using any text editor and managed in your source control system with the rest of your code.
 
