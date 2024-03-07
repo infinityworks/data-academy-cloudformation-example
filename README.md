@@ -34,7 +34,9 @@ aws-cli/2.4.10 Python/3.9.9 Darwin/20.6.0 source/x86_64 prompt/off
 
 ### AWS Authorisation
 
-If you have already setup an SSO profile skip to step 10
+#### aws sso
+
+If you use `aws sso` to log into the AWS CLI, and have already setup an SSO profile skip to step 10
 
 1. On a terminal run: `aws configure sso`
 2. Enter your SSO (Single Sign-On) URL.
@@ -46,8 +48,16 @@ If you have already setup an SSO profile skip to step 10
 8. When the terminal asks for a CLI profile name, enter a name: e.g. learner-profile
 9. You can log out of your SSO by running the following command: `aws sso logout`
 10. You can then login again by running: `aws sso login --profile <profile-name>`
-11. Check you can access AWS using the following command: `aws s3 ls --profile <profile-name>`. The command should list all the S3 buckets in the AWS account you have permissions to view. Validate this output using the AWS console.
-12. Finally set the following environmental variable: `AWS_PROFILE=<profile-name>`. This will save you adding the profile flag to every CLI command.
+
+#### aws-azure-login
+
+If you use `aws-azure-login`, log into the AWS CLI as usual, eg. by running `aws-azure-login --profile <profile-name> --mode gui`.
+
+#### Checking AWS CLI access
+
+Once logged in on the CLI, check you can access AWS using the following command: `aws s3 ls --profile <profile-name>`. The command should list all the S3 buckets in the AWS account you have permissions to view. Validate this output using the AWS console.
+
+Finally set the following environmental variable: `AWS_PROFILE=<profile-name>`. This will save you adding the profile flag to every CLI command.
 
 ## Deploying your first CloudFormation Stacks
 
