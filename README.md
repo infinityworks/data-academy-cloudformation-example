@@ -9,7 +9,9 @@ A repository to demonstrate a simple CloudFormation repo for the data engineerin
 - [DE Final Project google doc](https://docs.google.com/document/d/1GQ6avVo6iwYYs3LC7qPPmIIszPKaMyenuO8VvMjk2yM/edit#) - details about the final team project setup
 - [data-academy-final-project-infrastructure repo](https://github.com/infinityworks/data-academy-final-project-infrastructure) - shared infra to run the final projects in
 - [data-academy-cafe-data-producer repo](https://github.com/infinityworks/data-academy-cafe-data-producer) - a utility app that generates the dummy data required for the teams to ingest for the final projects
-- [data-academy-final-project-example repo](https://github.com/infinityworks/data-academy-final-project-example) - an example of how teams might complete the final project
+- [data-academy-pipeline-example repo](https://github.com/infinityworks/data-academy-pipeline-example)
+    - This one includes all the cloud formation for the Grafana EC2
+    - There is an older version here [data-academy-final-project-example repo](https://github.com/infinityworks/data-academy-final-project-example) that does not have the Grafana EC2 in CF
 - [data-academy-minetest-cloudformation repo](https://github.com/infinityworks/data-academy-minetest-cloudformation) - we run Minetest for Agile Day
 - Shared Google Drive folder [IW_(TD) Academy (Internal)/(02) Academy Programmes](https://drive.google.com/drive/u/0/folders/1fuDu33h6w7a6xFhRZvEIQ8zAsf7bHV1X) which contains further information relating to each academy
 
